@@ -77,10 +77,10 @@ deck = deck.shuffle!
 players_hand = []
 dealers_hand = []
 
+2.times do
 players_hand << deck.pop
 dealers_hand << deck.pop
-players_hand << deck.pop
-dealers_hand << deck.pop
+end
 
 dealerscards = dealers_hand
 playerscards = players_hand
