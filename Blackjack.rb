@@ -112,11 +112,7 @@ begin
         puts "=> #{user_name}'s total: #{players_total}"
         checks_user_busted(players_total)
 
-          if players_total > 21
-            hit_or_stay = 0
-          end
-
-          if players_total == 21
+          if players_total > 21 || players_total == 21
             hit_or_stay = 0
           end
 
