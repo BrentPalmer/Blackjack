@@ -96,7 +96,7 @@ checks_for_blackjack(players_total,user_name)
 
 begin
 puts ""
-puts "Would you like to: 1) HIT or 2) STAY?"
+puts "Would you like to: 1) 'HIT' or 2) 'STAY' (Enter in the numerical #1 or #2)?"
 hit_or_stay = gets.chomp
 
 if hit_or_stay.to_i == 1
