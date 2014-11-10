@@ -154,5 +154,5 @@ begin
     puts ""
     puts "Would you like to play again? (Y/N)"
     play_again = gets.chomp.upcase!
-end while play_again == "Y"
+end until play_again != "Y"
 
