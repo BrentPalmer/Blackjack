@@ -49,6 +49,7 @@ def checks_user_busted(total)
   end
 end
 
+
 def checks_dealer_busted(total)
   if total > 21
     puts "Dealer busted!"
