@@ -26,49 +26,47 @@ end
 def checks_for_blackjack(cards,user)
   if cards == 21
     puts "#{user} has Blackjack!"
-    anounces_winner(players_total,dealers_total)
-  else
-
   end
 end
 
 
-def anounces_winner(players_total,dealers_total)
+def anounces_winner(players_total,dealers_total,user_name)
   if players_total > dealers_total && players_total < 22
     puts "#{user_name} wins!"
+  elsif dealers_total > 21
+    puts "#{user_name} wins!"
+  elsif players_total == dealers_total
+    puts "It is a tie!"
   else
-    puts "You lose!"
+    puts "Dealer wins!"
   end
 end
 
 
-def checks_busted(total)
+def checks_user_busted(total)
   if total > 21
     puts "Sorry, you busted!"
-    #figure out how to announce winner if player busts
-    #announces_winner(players_total,dealers_total)
-  else
+  end
+end
+
+def checks_dealer_busted(total)
+  if total > 21
+    puts "Dealer busted!"
   end
 end
 
 
-def checks_dealers_cards_is_greater_than_16(dealers_cards)
-  if dealers_cards > 17
-    anounces_winner(players_total,dealers_total)
-  end
-end
-
-
-
-
-
+begin
+puts ""
 puts "Welcome to Blackjack!"
 puts "Please enter you name: "
 user_name = gets.chomp
+puts ""
 
 puts "Welcome, #{user_name}!"
+puts ""
 
-dealer_name = "dealer"
+dealer_name = "Dealer"
 values = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
 suits = ["Hearts", "Clubs", "Clovers", "Diamonds"]
 
@@ -89,42 +87,66 @@ playerscards = players_hand
 dealers_total = calculate_total(dealerscards)
 players_total = calculate_total(playerscards)
 
+puts "Dealer has #{dealers_hand} for a total of: #{dealers_total}"
+puts "#{user_name}'s' cards are: #{players_hand} for a total of: #{players_total}"
+
 checks_for_blackjack(dealers_total,dealer_name)
 checks_for_blackjack(players_total,user_name)
 
-
-
-puts "Dealer has #{dealers_hand} for a total of: #{dealers_total}"
-puts "#{user_name} cards are: #{players_hand} for a total of: #{players_total}"
+begin
+puts ""
 puts "Would you like to: 1) HIT or 2) STAY?"
 hit_or_stay = gets.chomp
 
-
-#begin
 if hit_or_stay.to_i == 1
+  puts ""
   puts "#{user_name} hits!"
   players_hand << deck.pop
   puts "#{user_name}'s cards are: #{playerscards}"
   players_total = calculate_total(playerscards)
-  puts "#{user_name}'s total: #{players_total}"
-  checks_busted(players_total)
+  puts "=> #{user_name}'s total: #{players_total}"
+  checks_user_busted(players_total)
+
+    if players_total > 21
+      hit_or_stay = 0
+    end
+
+elsif hit_or_stay.to_i == 2
+    hit_or_stay = 0
 end
-#end while #user presses 1 for hit!
-
-if hit_or_stay.to_i == 2
-  
-  checks_dealers_cards_is_greater_than_16(dealers_total)
+end while hit_or_stay != 0
 
 
+if players_total > 21
+else
+
+  begin
+    ending = 0
+    if dealers_total < 17
+      puts ""
+      puts "Dealer hits!"
+      dealers_hand << deck.pop
+      puts "Dealer's cards are: #{dealerscards}"
+      dealers_total = calculate_total(dealerscards)
+      puts "=> Dealer's total: #{dealers_total}"
+      checks_dealer_busted(dealers_total)
+    end
+
+    if dealers_total > 21
+      ending = 1
+    end
+
+    if dealers_total >= 17 && dealers_total < 22
+      ending = 1
+    end
+  end while ending != 1
 end
 
+puts ""
+anounces_winner(players_total,dealers_total,user_name)
 
-
-
-
-
-
-
-
-
+puts ""
+puts "Would you like to play again? (Y/N)"
+play_again = gets.chomp.upcase!
+end while play_again == "Y"
 
