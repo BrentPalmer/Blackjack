@@ -71,7 +71,7 @@ begin
 
   dealer_name = "Dealer"
   values = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
-  suits = ["Hearts", "Clubs", "Clovers", "Diamonds"]
+  suits = ["Hearts", "Clubs", "Spades", "Diamonds"]
 
   deck = suits.product(values)
   deck = deck.shuffle!
